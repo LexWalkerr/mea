@@ -2032,7 +2032,7 @@ const _1Wsfeo1SWYeN_9EbC6QXgTrh69gwIllwmeuOlcuy4kU = (function(nitro) {
 
 const rootDir = "/Users/goodboy/Documents/Crazyyyyyyyy/mea";
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[{"rel":"icon","type":"image/x-icon","href":"https://webmail.goldenwest.net/skins/elastic/images/favicon.ico?s=1749986326"}],"style":[],"script":[],"noscript":[]};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[{"rel":"icon","type":"image/x-icon","href":"https://mea.smarthub.coop/services/themes/resources?resource=favicon.ico"}],"style":[],"script":[],"noscript":[]};
 
 const appRootTag = "div";
 

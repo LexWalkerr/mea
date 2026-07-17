@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: 'https://webmail.goldenwest.net/skins/elastic/images/favicon.ico?s=1749986326' }
+        { rel: 'icon', type: 'image/x-icon', href: 'https://mea.smarthub.coop/services/themes/resources?resource=favicon.ico' }
       ]
     }
   }
