@@ -128,7 +128,7 @@
           </select>
         </div>
 
-        <button>Sign In</button>
+        <button>Pay now</button>
       </form>
 
       <div class="links">
